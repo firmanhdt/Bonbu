@@ -13,20 +13,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ([
-                        'Starter and Snack',
-                        'Mains',
-                        'Bonbu Signature Drinks',
-                        'Desserts',
-                        'Packages',
-                        'Add-ons',
-                        'Beverages',
-                    ] as $cat)
+                    @foreach (DB::table('categories')->get() as $category)
                     <tr class="text-sm text-center">
-                        <td class="px-4 py-2 border">{{ $cat }}</td>
+                        <td class="px-4 py-2 border">{{ $category->name }}</td>
                         <td class="px-4 py-2 border flex justify-center gap-2">
-                            <a href="/admin/category-edit" class="px-3 py-1 rounded bg-yellow-400 text-white text-xs font-semibold hover:bg-yellow-500">Edit</a>
-                            <button class="px-3 py-1 rounded bg-red-500 text-white text-xs font-semibold hover:bg-red-600">Delete</button>
+                            <a href="/admin/category-edit/{{ $category->id }}" class="px-3 py-1 rounded bg-yellow-400 text-white text-xs font-semibold hover:bg-yellow-500">Edit</a>
+                            <form action="/admin/category-delete/{{ $category->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-3 py-1 rounded bg-red-500 text-white text-xs font-semibold hover:bg-red-600">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -34,4 +30,4 @@
             </table>
         </div>
     </div>
-</x-admin-layout> 
+</x-admin-layout>

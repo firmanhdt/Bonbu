@@ -6,10 +6,11 @@
             </a>
             <h2 class="text-lg font-semibold">Add Category</h2>
         </div>
-        <form class="bg-white border rounded-lg p-6">
+        <form action="{{ route('admin.category.store') }}" method="POST" class="bg-white border rounded-lg p-6">
+            @csrf
             <div class="mb-4">
                 <label class="block text-sm font-medium mb-1">Category Name</label>
-                <input type="text" class="border rounded px-3 py-2 w-full focus:outline-none focus:ring" placeholder="Enter category name" />
+                <input type="text" name="name" class="border rounded px-3 py-2 w-full focus:outline-none focus:ring" placeholder="Enter category name" required />
             </div>
             <div class="flex gap-4 justify-center mt-6">
                 <a href="/admin/category" class="border rounded px-8 py-2 bg-white hover:bg-gray-100">Cancel</a>
@@ -17,4 +18,4 @@
             </div>
         </form>
     </div>
-</x-admin-layout> 
+</x-admin-layout>

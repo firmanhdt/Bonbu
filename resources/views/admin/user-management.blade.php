@@ -13,16 +13,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for ($i = 0; $i < 6; $i++)
+                    @forelse ($customers as $customer)
                     <tr class="text-sm text-center">
-                        <td class="px-4 py-2 border">CUST001</td>
-                        <td class="px-4 py-2 border">Nisa</td>
-                        <td class="px-4 py-2 border">08123456789</td>
-                        <td class="px-4 py-2 border">zzzxxsaa@gmail.com</td>
+                        <td class="px-4 py-2 border">{{ $customer->id }}</td>
+                        <td class="px-4 py-2 border">{{ $customer->name }}</td>
+                        <td class="px-4 py-2 border">{{ $customer->phone ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $customer->email }}</td>
                     </tr>
-                    @endfor
+                    @empty
+                    <tr>
+                        <td colspan="4" class="text-center text-gray-400 py-4">No customers found.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
-</x-admin-layout> 
+</x-admin-layout>

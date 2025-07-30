@@ -39,7 +39,7 @@
                 <img src="/img/sidebar-admin/order.png" alt="Order Management" class="w-5 h-5 mr-3">
                 Order Management
             </a>
-            <a href="/admin/user" class="flex items-center px-4 py-2 border rounded-lg font-medium text-gray-900 hover:bg-gray-100 transition">
+            <a href="/admin/user-management" class="flex items-center px-4 py-2 border rounded-lg font-medium text-gray-900 hover:bg-gray-100 transition">
                 <img src="/img/sidebar-admin/customer.png" alt="Customers" class="w-5 h-5 mr-3">
                 Customers
             </a>

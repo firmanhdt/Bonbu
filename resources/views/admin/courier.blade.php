@@ -17,23 +17,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ([
-                        ['name' => 'Budi', 'motor' => 'Honda Beat', 'phone' => '081234567890', 'email' => 'budi@mail.com', 'plate' => 'B 1234 ABC'],
-                        ['name' => 'Siti', 'motor' => 'Yamaha Mio', 'phone' => '081298765432', 'email' => 'siti@mail.com', 'plate' => 'B 5678 XYZ'],
-                    ] as $courier)
+                    @forelse ($couriers as $courier)
                     <tr class="text-sm text-center">
-                        <td class="px-4 py-2 border">{{ $courier['name'] }}</td>
-                        <td class="px-4 py-2 border">{{ $courier['motor'] }}</td>
-                        <td class="px-4 py-2 border">{{ $courier['phone'] }}</td>
-                        <td class="px-4 py-2 border">{{ $courier['email'] }}</td>
-                        <td class="px-4 py-2 border">{{ $courier['plate'] }}</td>
+                        <td class="px-4 py-2 border">{{ $courier->name }}</td>
+                        <td class="px-4 py-2 border">{{ $courier->motor_type }}</td>
+                        <td class="px-4 py-2 border">{{ $courier->phone_number }}</td>
+                        <td class="px-4 py-2 border">{{ $courier->email }}</td>
+                        <td class="px-4 py-2 border">{{ $courier->plate_number }}</td>
                         <td class="px-4 py-2 border flex justify-center gap-2">
-                            <button class="px-3 py-1 rounded bg-red-500 text-white text-xs font-semibold hover:bg-red-600">Delete</button>
+                            <form action="{{ route('admin.courier.destroy', $courier->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus courier ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="px-3 py-1 rounded bg-red-500 text-white text-xs font-semibold hover:bg-red-600">Delete</button>
+                            </form>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="6" class="text-center text-gray-400 py-4">Belum ada courier.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
-</x-admin-layout> 
+</x-admin-layout>

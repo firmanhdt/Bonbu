@@ -1,10 +1,84 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CourierController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\MenuUserController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [HomeController::class, 'index']);
+
+
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::prefix('admin')->group(function () {
+    Route::get('/menu', [MenuController::class, 'index'])->name('admin.menu.index');
+    Route::get('/menu-add', [MenuController::class, 'create'])->name('admin.menu.create');
+    Route::post('/menu-add', [MenuController::class, 'store'])->name('admin.menu.store');
+    Route::delete('/menu/{id}', [MenuController::class, 'destroy'])->name('admin.menu.destroy');
+    Route::get('/menu-edit', [MenuController::class, 'edit'])->name('admin.menu.edit');
+
+    Route::get('/category', [CategoryController::class, 'index'])->name('admin.category.index');
+    Route::get('/category-add', [CategoryController::class, 'create'])->name('admin.category.create');
+    Route::post('/category-add', [CategoryController::class, 'store'])->name('admin.category.store');
+    Route::get('/category-edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
+    Route::post('/category-edit/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
+    Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
+
+    Route::get('/courier', [CourierController::class, 'index'])->name('admin.courier.index');
+    Route::get('/courier-add', [CourierController::class, 'create'])->name('admin.courier.create');
+    Route::post('/courier-add', [CourierController::class, 'store'])->name('admin.courier.store');
+    Route::delete('/courier/{id}', [CourierController::class, 'destroy'])->name('admin.courier.destroy');
+
+    Route::get('/user-management', [CustomerController::class, 'index'])->name('admin.user.management');
 });
+
+Route::prefix('users')->group(function () {
+    Route::get('/menu', [MenuUserController::class, 'index'])->name('menu.index');
+    Route::get('/profile/address-edit/{id}', [AddressController::class, 'edit'])->name('address.edit');
+
+    Route::get('/address', [AddressController::class, 'index'])->name('address.index');
+    Route::get('/address/add', [AddressController::class, 'create'])->name('address.create');
+    Route::post('/address/add', [AddressController::class, 'store'])->name('address.store');
+
+    // ✅ Tambahkan ini:
+    Route::put('/address/update/{id}', [AddressController::class, 'update'])->name('address.update');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/sign-in', function () {
     return view('auth.sign-in');
@@ -30,9 +104,9 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
-Route::get('/menu', function () {
-    return view('menu');
-});
+// Route::get('/menu', function () {
+//     return view('menu');
+// });
 
 Route::get('/profile', function () {
     return view('profile.index');
@@ -91,45 +165,10 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 });
 
-Route::get('/admin/menu', function () {
-    return view('admin.menu');
-});
-
-Route::get('/admin/menu-add', function () {
-    return view('admin.menu-add');
-});
-
-Route::get('/admin/menu-edit', function () {
-    return view('admin.menu-edit');
-});
-
-Route::get('/admin/category', function () {
-    return view('admin.category');
-});
-
-Route::get('/admin/category-add', function () {
-    return view('admin.category-add');
-});
-
-Route::get('/admin/category-edit', function () {
-    return view('admin.category-edit');
-});
-
 Route::get('/admin/order', function () {
     return view('admin.order-management');
 });
 
-Route::get('/admin/user', function () {
-    return view('admin.user-management');
-});
-
-Route::get('/admin/courier', function () {
-    return view('admin.courier');
-});
-
-Route::get('/admin/courier-add', function () {
-    return view('admin.courier-add');
-});
 
 Route::get('/admin/settings', function () {
     return view('admin.settings');
